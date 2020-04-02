@@ -11,25 +11,27 @@ def find_files(suffix, path):
   if not bool(path):
     return []
 
-  def find(path, files):
-    # os.listdir: returns a list containing the names of the entries in the directory given by 'path' 
-    for entry in os.listdir(path):
-      full_path = os.path.join(path, entry)
-      print(full_path)
+  output = []
+  # os.listdir: returns a list containing the names of the entries in the directory given by 'path' 
+  for entry in os.listdir(path):
+    entry_path = os.path.join(path, entry) # concatenation of path components
 
-      if os.path.isdir(full_path):
-        files = find(full_path, files)
+    if os.path.isdir(entry_path):
+      output += find_files(suffix, entry_path)
 
-      elif os.path.isfile(full_path) and (suffix is None or entry.endswith(suffix)):
-        files.append(full_path)
-      
-      return files
-
-    # Returns a list of paths
-    return find(path, [])
+    elif os.path.isfile(entry_path) and entry.endswith(suffix):
+      output.append(entry_path)
+    
+  return output
 
 
 def test(suffix, path):
   files = find_files(suffix, path)
+  if len(files) == 0:
+    print('No files found.')
+    return
 
-print(test('.c', 'testdir'))
+  for path in files:
+    print(path)
+
+test('.c', './testdir')
