@@ -11,3 +11,9 @@ The task is to use an appropriate data structure(s) to implement the cache.
 
 - All operations must take O(1) time.
 - Consider the size of cache = 5.
+
+# Problem 2: Finding Files
+
+For this problem, the goal is to write code for finding all files under a directory (and all directories beneath it) that end with ".c"
+
+Note: `os.walk()` is a handy Python method which can achieve this task very easily. However, for this problem you are not allowed to use `os.walk()`.

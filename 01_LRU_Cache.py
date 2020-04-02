@@ -18,14 +18,14 @@ class LRU_Cache(object):
         if capacity < 1:
             print('Capacity must be > 0')
             return None
+
         # Initialize class variables
-        # tail: Node with the least recently used key
-        # head: Node with the most recently used key
         self.hash_map = {}
-        self.head = None
-        self.tail = None
+        self.head = None # head: Node with the most recently used key
+        self.tail = None # tail: Node with the least recently used key
         self.capacity = capacity
         self.size = 0
+
 
     def __str__(self):
         for key in self.hash_map:
@@ -33,32 +33,45 @@ class LRU_Cache(object):
             for value in self.hash_map[key]:
                 print(self.hash_map[key][value])
     
-    def use(self, node):
 
-        # head node is most recent, nothing to do
+    def handle(self, node):
+        # if node is head (most recent), nothing to do
         if node is self.head: return
+
+        # 
+        if node.next: 
+            node.next.prev = node.prev
+        if node.prev:
+            node.prev.next = node.next
+
+        # if node was tail, set new tail
+        if node is self.tail:
+            self.tail = self.tail.prev
+
+        # 
 
 
 
     # Retrieve item from provided key.
     def get(self, key):
         
-        # Return -1 if nonexistent. 
+        if key in self.hash_map:
+            self.handle(self.hash_map[key])
+            return self.hash_map[key].value
+        # Return -1 if nonexistent
         if key not in self.hash_map:
             return -1
-        
-        node = self.hash_map[key]
-        # if self.head == node:
-        #     return node.value
 
-        return self.hash_map[key].value
 
     def set(self, key, value):
         # If key is present in the cache update node with new value
         if key in self.hash_map:
+            self.handle(self.hash_map[key])
             self.hash_map[key].value = value
         else:
+            # insert new node
             node = Node(key, value)
+            self.hash_map[key] = node
 
             # if self.size < self.capacity:
             #     self.size += 1
