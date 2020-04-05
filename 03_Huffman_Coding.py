@@ -33,44 +33,59 @@ def get_frequencies(data):
             char_dict[char] += 1
     # 2. Build and sort a list of tuples from lowest to highest frequencies.
     frequencies = sorted(zip(char_dict.values(), char_dict.keys()))
-    print(frequencies)
     return frequencies
 
 
 
 def create_huffman_tree(frequencies):
-    priority_queue = queue.PriorityQueue()
+    if frequencies:
+        priority_queue = queue.PriorityQueue()
 
-    if len(frequencies) == 1:
-        node = Huffman_Node(None, None, 0, None) # left, right, frequency, value
-        priority_queue.put(node)
-    
-    # 3. Replace sorted tuples with Huffman_Nodes
-    for value in frequencies:
-        node = Huffman_Node(frequency = value[0], value = value[1])
-        # print(Huffman_Node.__str__(node))
-        priority_queue.put(node)
+        if len(frequencies) == 1:
+            node = Huffman_Node(None, None, None, None) # left, right, frequency, value
+            priority_queue.put(node)
+        
+        # 3. Replace sorted tuples with Huffman_Nodes
+        for value in frequencies:
+            node = Huffman_Node(frequency = value[0], value = value[1])
+            # print(Huffman_Node.__str__(node))
+            priority_queue.put(node)
 
-    print(priority_queue.qsize())
-    while priority_queue.qsize() > 1:
-        # get the two highest priority items
-        hp1 = priority_queue.get() # left
-        hp2 = priority_queue.get() # right
-        print('hp1', hp1.frequency)
-        print('hp2', hp2.frequency)
-        freq = hp1.frequency + hp2.frequency
-        parent = Huffman_Node(hp1, hp2, freq)
-        priority_queue.put(parent)
+        while priority_queue.qsize() > 1:
+            # get the two highest priority items
+            hp1 = priority_queue.get() # left
+            hp2 = priority_queue.get() # right
+            total_freq = hp1.frequency + hp2.frequency
+            parent = Huffman_Node(hp1, hp2, total_freq)
+            priority_queue.put(parent)
 
-    tree = priority_queue.get()
-    del priority_queue
-    return tree
+        tree = priority_queue.get()
+        del priority_queue
+        return tree
+
+
+def encode(node, code = None, bitcodes = {}):
+
+    if not node:
+        return False
+
+    if code is None:
+        code = ""
+        
+    if node.value:
+        # print(node.value)
+        bitcodes[node.value] = code
+        encode(node.left, code + "0", bitcodes)
+        encode(node.right, code + "1", bitcodes)
+
+    print(bitcodes)
 
 
 # 5. Encode the text into its compressed form
-def huffman_encoding(data):
-    frequencies = get_frequencies(data)
+def huffman_encoding(text):
+    frequencies = get_frequencies(text)
     tree = create_huffman_tree(frequencies)
+    codes = encode(tree, "")
     pass
 
 
