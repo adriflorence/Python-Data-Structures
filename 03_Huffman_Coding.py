@@ -5,11 +5,11 @@ import queue
 # Trim the Huffman Tree (remove the frequencies from the previously built tree).
 
 class Huffman_Node(object):
-    def __init__(self, left = None, right = None, value = None, frequency = None):
+    def __init__(self, left = None, right = None, frequency = None, value = None):
         self.left = None
         self.right = None
-        self.value = value
         self.frequency = frequency
+        self.value = value
 
     # Compare two Huffman_Nodes
     def __lt__(self, other):
@@ -17,7 +17,7 @@ class Huffman_Node(object):
     
     # override stringify
     def __str__(self):
-        return str(self.value) + " " + str(self.frequency)
+        return str(self.frequency) + " " + str(self.value)
 
 
 # 1. Take a string and determine the relevant frequencies of the characters.
@@ -42,16 +42,29 @@ def create_huffman_tree(frequencies):
     priority_queue = queue.PriorityQueue()
 
     if len(frequencies) == 1:
-        node = Huffman_Node(None, None, None, 0) # left, right, value, frequency
+        node = Huffman_Node(None, None, 0, None) # left, right, frequency, value
         priority_queue.put(node)
     
     # 3. Replace sorted tuples with Huffman_Nodes
     for value in frequencies:
-        node = Huffman_Node(frequency = value[0], element = value[1])
-        print(Huffman_Node.__str__(node))
+        node = Huffman_Node(frequency = value[0], value = value[1])
+        # print(Huffman_Node.__str__(node))
         priority_queue.put(node)
 
+    print(priority_queue.qsize())
+    while priority_queue.qsize() > 1:
+        # get the two highest priority items
+        hp1 = priority_queue.get() # left
+        hp2 = priority_queue.get() # right
+        print('hp1', hp1.frequency)
+        print('hp2', hp2.frequency)
+        freq = hp1.frequency + hp2.frequency
+        parent = Huffman_Node(hp1, hp2, freq)
+        priority_queue.put(parent)
 
+    tree = priority_queue.get()
+    del priority_queue
+    return tree
 
 
 # 5. Encode the text into its compressed form
@@ -75,3 +88,13 @@ if __name__ == "__main__":
     print ("The content of the data is: {}\n".format(a_great_sentence))
 
     huffman_encoding(a_great_sentence)
+
+# encoded_data, tree = huffman_encoding(a_great_sentence)
+
+# print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+# print ("The content of the encoded data is: {}\n".format(encoded_data))
+
+# decoded_data = huffman_decoding(encoded_data, tree)
+
+# print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+# print ("The content of the encoded data is: {}\n".format(decoded_data))
