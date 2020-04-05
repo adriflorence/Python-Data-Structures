@@ -1,10 +1,24 @@
 import sys
 
-# Take a string and determine the relevant frequencies of the characters.
-# Build and sort a list of tuples from lowest to highest frequencies.
-# Build the Huffman Tree by assigning a binary code to each letter, using shorter codes for the more frequent letters. (This is the heart of the Huffman algorithm.)
-# Trim the Huffman Tree (remove the frequencies from the previously built tree).
+# 3. Build the Huffman Tree by assigning a binary code to each letter, using shorter codes for the more frequent letters. (This is the heart of the Huffman algorithm.)
+# 4. Trim the Huffman Tree (remove the frequencies from the previously built tree).
 
+class Huffman_Node:
+    def __init__(self, value, weight):
+        self.left = None
+        self.right = None
+        self.value = value
+        self.weight = weight
+
+    # Compare two Huffman_Nodes
+    def __lt__(self, other):
+        return self.weight < other.weight
+    
+    # override stringify
+    def __str__(self):
+        return str(self.value) + " " + str(self.weight)
+
+# 1. Take a string and determine the relevant frequencies of the characters.
 def get_frequencies(data):
     char_dict = {}
     for char in data:
@@ -12,18 +26,20 @@ def get_frequencies(data):
             char_dict[char] = 1
         else: 
             char_dict[char] += 1
-    #create a sorted list key, freq tuple pairs
+    # 2. Build and sort a list of tuples from lowest to highest frequencies.
     sorted_frequencies = sorted(zip(char_dict.values(), char_dict.keys()))
     print(sorted_frequencies)
 
-# Encode the text into its compressed form.
+
+# 5. Encode the text into its compressed form.
 def huffman_encoding(data):
     get_frequencies(data)
     pass
 
-# Decode the text from its compressed form.
+# 6. Decode the text from its compressed form.
 def huffman_decoding(data,tree):
     pass
+
 
 if __name__ == "__main__":
     codes = {}
