@@ -77,15 +77,20 @@ def build_codes(node, code = None, codes = {}):
     return codes
 
 # 5. Encode the text into its compressed form
-def encode():
-    pass
+def encode(text, codes):
+    output = ""
+    for char in text:
+        output += codes[char]
+    return output
 
 
 def huffman_encoding(text):
     frequencies = get_frequencies(text)
     tree = create_huffman_tree(frequencies)
     codes = build_codes(tree)
-    pass
+    bitcode = encode(text, codes)
+    print(bitcode)
+    return bitcode, tree
 
 
 # 6. Decode the text from its compressed form
@@ -102,7 +107,7 @@ if __name__ == "__main__":
 
     huffman_encoding(a_great_sentence)
 
-# encoded_data, tree = huffman_encoding(a_great_sentence)
+encoded_data, tree = huffman_encoding(a_great_sentence)
 
 # print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
 # print ("The content of the encoded data is: {}\n".format(encoded_data))
