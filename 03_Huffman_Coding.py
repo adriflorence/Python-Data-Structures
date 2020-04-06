@@ -71,10 +71,11 @@ def build_codes(node, code = None, codes = {}):
         
     if node.value:
         codes[node.value] = code
-        print('node value: ', node.value, 'code: ', code)
+        # print('node value: ', node.value, 'code: ', code)
     build_codes(node.left, code + "0", codes)
     build_codes(node.right, code + "1", codes)
     return codes
+
 
 # 5. Encode the text into its compressed form
 def encode(text, codes):
@@ -89,13 +90,27 @@ def huffman_encoding(text):
     tree = create_huffman_tree(frequencies)
     codes = build_codes(tree)
     bitcode = encode(text, codes)
-    print(bitcode)
+    # print(bitcode)
     return bitcode, tree
 
 
 # 6. Decode the text from its compressed form
-def huffman_decoding(data,tree):
-    pass
+def huffman_decoding(encoded_text, root):
+
+    node = root
+    output = ""
+    # Iterate through each char in encoded text
+    for char in encoded_text:
+        # if current_node is a leaf, add character to output string
+        if (node.left is None and node.right is None):
+            output += node.value
+            node = root
+        if char == "0":
+            node = node.left
+        if char == "1":
+            node = node.right
+    output += node.value
+    return output
 
 
 if __name__ == "__main__":
@@ -107,12 +122,12 @@ if __name__ == "__main__":
 
     huffman_encoding(a_great_sentence)
 
-encoded_data, tree = huffman_encoding(a_great_sentence)
+    encoded_data, tree = huffman_encoding(a_great_sentence)
 
-# print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
-# print ("The content of the encoded data is: {}\n".format(encoded_data))
+    print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+    print ("The content of the encoded data is: {}\n".format(encoded_data))
 
-# decoded_data = huffman_decoding(encoded_data, tree)
+    decoded_data = huffman_decoding(encoded_data, tree) # tree = root node
 
-# print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
-# print ("The content of the encoded data is: {}\n".format(decoded_data))
+    print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print ("The content of the encoded data is: {}\n".format(decoded_data))
