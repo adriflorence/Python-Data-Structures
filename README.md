@@ -31,3 +31,14 @@ Possible pseudocode:
 - Trim the Huffman Tree (remove the frequencies from the previously built tree).
 - Encode the text into its compressed form.
 - Decode the text from its compressed form.
+
+# Problem 4: Active Directory
+
+In Windows Active Directory, a group can consist of user(s) and group(s).
+Write a function that provides an efficient look up of whether the user is in a group.
+
+# Problem 5: Blockchain
+
+A Blockchain is a sequential chain of records, similar to a linked list. Each block contains some information and how it is connected related to the other blocks in the chain. Each block contains a cryptographic hash of the previous block, a timestamp, and transaction data. For our blockchain we will be using a SHA-256 hash, the Greenwich Mean Time when the block was created, and text strings as the data.
+
+The task is to implement blockchain as a linked list.
