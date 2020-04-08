@@ -9,10 +9,9 @@ import datetime
 class Block:
 
     def __init__(self, data, previous_hash):
-        self.timestamp = datetime.now()
+        self.timestamp = datetime.datetime.now()
         self.data = data
         self.previous_hash = previous_hash
-        self.previous_block = None
         self.hash = self.calc_hash()
 
 
@@ -26,26 +25,34 @@ class Block:
 
 
 # LinkedList
-class Chain:
+class BlockChain(object):
 
-    def __init__(self, previous):
-        self.head = None
+    def __init__(self):
+        self.tail = None
 
     # append a block to the chain
-    def append(self, data, previous_hash):
-        if self.head is None:
-            self.head = Block(data, previous_hash)
-            return
-        node = self.head
-        while node.next:
-            node = node.next
+    def append(self, data):
+        if self.tail is None:
+            self.tail = Block(data, None)
 
-        node.next = Block(data, previous_hash)
+        else:
+            self.tail = Block(data, self.tail)
 
+    # converts the LinkedList into a plain list
     def to_list(self):
         output = []
-        node = self.head
-        while node:
-            output.append(node.value)
-            node = node.next
+        block = self.tail
+        while block:
+            output.append([block.data, block.timestamp, block.hash])
+            block = block.previous_hash
         return output
+
+
+# TEST
+block_chain = BlockChain()
+
+block_chain.append("Genesis Block") # A genesis block is the first block of a blockchain
+block_chain.append("Block 1")
+block_chain.append("Block 2")
+
+print(block_chain.to_list())
