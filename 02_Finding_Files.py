@@ -35,3 +35,19 @@ def test(suffix, path):
     print(path)
 
 test('.c', './testdir')
+# ./testdir/subdir3/subsubdir1/b.c
+# ./testdir/t1.c
+# ./testdir/subdir5/a.c
+# ./testdir/subdir1/a.c
+
+test('.h', './testdir')
+# ./testdir/subdir3/subsubdir1/b.h
+# ./testdir/subdir5/a.h
+# ./testdir/t1.h
+# ./testdir/subdir1/a.h
+
+test('.z', './testdir')
+# No files found.
+
+test('', './testdir')
+# No files found.
