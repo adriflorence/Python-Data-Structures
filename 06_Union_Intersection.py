@@ -61,12 +61,27 @@ def union(llist_1, llist_2):
     return linked_list
 
 def intersection(llist_1, llist_2):
-    # Your Solution Here
-    pass
+    set_1 = set(llist_1.to_list())
+    set_2 = set(llist_2.to_list())
+
+    intersection = []
+    for element in set_1:
+        if element in set_2:
+            intersection.append(element)
+
+    if len(intersection):
+        linked_list = LinkedList()
+        for i in intersection:
+            linked_list.append(i)
+
+        return linked_list
+    else: 
+        return "No common elements"
+
 
 
 # Test case 1
-
+print("Test case 1:")
 linked_list_1 = LinkedList()
 linked_list_2 = LinkedList()
 
@@ -79,12 +94,18 @@ for i in element_1:
 for i in element_2:
     linked_list_2.append(i)
 
-print("")
-print (union(linked_list_1,linked_list_2))
-# print (intersection(linked_list_1,linked_list_2))
+
+print("32 -> 65 -> 2 -> 35 -> 4 -> 6 -> 1 -> 9 -> 11 -> 3 -> 21 ->")
+print(union(linked_list_1,linked_list_2))
+
+
+print(intersection(linked_list_1,linked_list_2))
+print("4 -> 6 -> 21 ->")
+
 
 # Test case 2
-
+print
+print("Test case 2:")
 linked_list_3 = LinkedList()
 linked_list_4 = LinkedList()
 
@@ -97,5 +118,27 @@ for i in element_1:
 for i in element_2:
     linked_list_4.append(i)
 
-print (union(linked_list_3,linked_list_4))
-# print (intersection(linked_list_3,linked_list_4))
+print(union(linked_list_3,linked_list_4))
+print("65 -> 2 -> 35 -> 4 -> 6 -> 1 -> 8 -> 9 -> 7 -> 11 -> 3 -> 21 -> 23 ->")
+print(intersection(linked_list_3,linked_list_4))
+print("No common elements")
+
+# Test case 3
+print
+print("Test case 3:")
+linked_list_5 = LinkedList()
+linked_list_6 = LinkedList()
+
+element_1 = []
+element_2 = [1,2,3]
+
+for i in element_1:
+    linked_list_5.append(i)
+
+for i in element_2:
+    linked_list_6.append(i)
+
+print(union(linked_list_5,linked_list_6))
+print("1 -> 2 -> 3 ->")
+print(intersection(linked_list_5,linked_list_6))
+print("No common elements")
