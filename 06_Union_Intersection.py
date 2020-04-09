@@ -95,12 +95,10 @@ for i in element_2:
     linked_list_2.append(i)
 
 
-print("32 -> 65 -> 2 -> 35 -> 4 -> 6 -> 1 -> 9 -> 11 -> 3 -> 21 ->")
 print(union(linked_list_1,linked_list_2))
-
-
+# 32 -> 65 -> 2 -> 35 -> 4 -> 6 -> 1 -> 9 -> 11 -> 3 -> 21 ->")
 print(intersection(linked_list_1,linked_list_2))
-print("4 -> 6 -> 21 ->")
+# 4 -> 6 -> 21 ->
 
 
 # Test case 2
@@ -119,9 +117,9 @@ for i in element_2:
     linked_list_4.append(i)
 
 print(union(linked_list_3,linked_list_4))
-print("65 -> 2 -> 35 -> 4 -> 6 -> 1 -> 8 -> 9 -> 7 -> 11 -> 3 -> 21 -> 23 ->")
+# 65 -> 2 -> 35 -> 4 -> 6 -> 1 -> 8 -> 9 -> 7 -> 11 -> 3 -> 21 -> 23 ->
 print(intersection(linked_list_3,linked_list_4))
-print("No common elements")
+# No common elements
 
 # Test case 3
 print
@@ -139,6 +137,6 @@ for i in element_2:
     linked_list_6.append(i)
 
 print(union(linked_list_5,linked_list_6))
-print("1 -> 2 -> 3 ->")
+# 1 -> 2 -> 3 ->
 print(intersection(linked_list_5,linked_list_6))
-print("No common elements")
+# No common elements
