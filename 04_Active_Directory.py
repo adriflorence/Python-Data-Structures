@@ -53,6 +53,16 @@ parent.add_group(child)
 # TEST
 
 print("Expected to be True: ", is_user_in_group(sub_child_user, sub_child))
-print("Expected to be False: ",is_user_in_group(sub_child_user, child))
-print("Expected to be False: ",is_user_in_group(sub_child_user, parent))
-print("Expected to be False: ",is_user_in_group(sub_child_user, None))
+# True
+print("Expected to be True: ", is_user_in_group('parent_user', parent))
+# False
+print("Expected to be False: ", is_user_in_group(sub_child_user, child))
+# False
+print("Expected to be False: ", is_user_in_group(sub_child_user, parent))
+# False
+print("Expected to be False: ", is_user_in_group(sub_child_user, None))
+# False
+print("Expected to be False: ", is_user_in_group('', parent))
+# False
+print("Expected to be False: ", is_user_in_group('', child))
+# False

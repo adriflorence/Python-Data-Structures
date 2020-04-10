@@ -56,3 +56,8 @@ block_chain.append("Block 1")
 block_chain.append("Block 2")
 
 print(block_chain.to_list())
+# [
+#   ['Block 2', datetime.datetime(2020, 4, 9, 21, 58, 3, 119741), '5f888ff99c0ec08f145041f0f0a4d54a91a5492888fd1e76fa069993a5585f91'],
+#   ['Block 1', datetime.datetime(2020, 4, 9, 21, 58, 3, 119698), '3061683bbd9b8c5b4bd09e7b2867a75f74b3af811e7e81f59e2a2249fc845814'],
+#   ['Genesis Block', datetime.datetime(2020, 4, 9, 21, 58, 3, 118695), '2a51c7c0ef0db5b8f54189cd4294403b2a1f02669e05e860d4603938dde705a7']
+# ]
