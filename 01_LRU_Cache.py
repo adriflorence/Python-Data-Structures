@@ -58,6 +58,9 @@ class LRU_Cache(object):
 
 
     def set(self, key, value):
+        if key is None:
+            print("None is not a valid key. Node was not added.")
+            return
         # If key is present in the cache update node with new value
         if key in self.hash_map:
             self.rearrange(self.hash_map[key])
@@ -101,8 +104,14 @@ our_cache.set(7, 7)
 # evicts (4,4)
 
 print(our_cache.get(3))
-# returns -1
+# returns -1, because the cache reached it's capacity and 3 was the least recently used entry
 print(our_cache.get(6))
 # returns 6
 print(our_cache.get(1))
 # returns 1
+print(our_cache.get(None))
+# returns -1, because None is not present in the cache
+our_cache.set(None, 3);
+# None is not a valid key. Node was not added.
+print(our_cache.get(None))
+# returns -1, because None is not present in the cache
