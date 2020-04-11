@@ -14,7 +14,7 @@ class Node:
 
 class LRU_Cache(object):
 
-    def __init__(self, capacity):
+    def __init__(self, capacity = 5):
         if capacity < 1:
             print('Capacity must be > 0')
             return None
@@ -28,35 +28,29 @@ class LRU_Cache(object):
 
 
     def __str__(self):
-        for key in self.hash_map:
-            print(key)
-            for value in self.hash_map[key]:
-                print(self.hash_map[key][value])
-    
+        print(self.head.value, self.tail.value)
 
-    def handle(self, node):
+
+    def rearrange(self, node):
+        if not self.head:
+            self.head = node
+            self.tail = node
+            return
         # if node is head (most recent), nothing to do
         if node is self.head: return
-
-        # 
-        if node.next: 
-            node.next.prev = node.prev
-        if node.prev:
-            node.prev.next = node.next
-
         # if node was tail, set new tail
         if node is self.tail:
-            self.tail = self.tail.prev
+            self.tail = self.tail.next
+        # and set new head
+        node.prev = self.head
+        self.head.next = node
+        self.head = node
 
-        # 
 
-
-
-    # Retrieve item from provided key.
+    # Retrieve item from provided key
     def get(self, key):
-        
         if key in self.hash_map:
-            self.handle(self.hash_map[key])
+            self.rearrange(self.hash_map[key])
             return self.hash_map[key].value
         # Return -1 if nonexistent
         if key not in self.hash_map:
@@ -66,21 +60,21 @@ class LRU_Cache(object):
     def set(self, key, value):
         # If key is present in the cache update node with new value
         if key in self.hash_map:
-            self.handle(self.hash_map[key])
+            self.rearrange(self.hash_map[key])
             self.hash_map[key].value = value
         else:
             # insert new node
+            # If the cache is at capacity remove the oldest item
+            if self.size == self.capacity:
+                print('cache is full item to evict is:', self.tail.key, self.tail.value)
+                del self.hash_map[self.tail.key]
+                self.tail = self.tail.next
+            if self.size < self.capacity:
+                 self.size += 1
             node = Node(key, value)
             self.hash_map[key] = node
-
-            # if self.size < self.capacity:
-            #     self.size += 1
-
-            # # If the cache is at capacity remove the oldest item
-            # elif self.size == self.capacity:
-            #     current_tail_key = self.tail.key
-
-            self.hash_map[key] = node
+            self.rearrange(node)
+        # self.__str__()
 
 
 our_cache = LRU_Cache(5)
@@ -90,14 +84,25 @@ our_cache.set(2, 2);
 our_cache.set(3, 3);
 our_cache.set(4, 4);
 
-our_cache.__str__()
 
 
-# our_cache.get(1)       # returns 1
-# our_cache.get(2)       # returns 2
-# our_cache.get(9)      # returns -1 because 9 is not present in the cache
+print(our_cache.get(1))
+# returns 1
+print(our_cache.get(2))
+# returns 2
+print(our_cache.get(9))
+# returns -1 because 9 is not present in the cache
 
-# our_cache.set(5, 5) 
-# our_cache.set(6, 6)
+our_cache.set(5, 5)
+# 5 gets added, no eviction
+our_cache.set(6, 6)
+# evicts (3,3)
+our_cache.set(7, 7)
+# evicts (4,4)
 
-# our_cache.get(3)      # returns -1 because the cache reached it's capacity and 3 was the least recently used entry
+print(our_cache.get(3))
+# returns -1
+print(our_cache.get(6))
+# returns 6
+print(our_cache.get(1))
+# returns 1
