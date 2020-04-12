@@ -54,7 +54,7 @@ def union(llist_1, llist_2):
     linked_list = LinkedList()
     union_list = list(set(llist_1.to_list() + llist_2.to_list()))
 
-    # iterating over a list O(n)
+    # iterating over a list O(length of llist_1 + llist_2)
     for i in union_list:
         linked_list.append(i)
 
@@ -65,8 +65,8 @@ def intersection(llist_1, llist_2):
     set_2 = set(llist_2.to_list())
 
     intersection = []
-    for element in set_1:
-        if element in set_2:
+    for element in set_1: # worst case O(n)
+        if element in set_2: # worst case O(n)
             intersection.append(element)
 
     if len(intersection):

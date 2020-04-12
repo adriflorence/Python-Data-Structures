@@ -8,7 +8,6 @@ The task is to use an appropriate data structure(s) to implement the cache.
 - In case of a cache miss, the get() should return -1.
 - While putting an element in the cache, the put() / set() operation must insert the element.
 - If the cache is full, the least recently used entry must be removed first and then insert the element.
-
 - All operations must take O(1) time.
 - Consider the size of cache = 5.
 
