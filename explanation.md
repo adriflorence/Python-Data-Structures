@@ -18,9 +18,10 @@ Time complexity of the methods used for the Huffman encoding/decoding task:
 
 - `get_frequencies(data)`: both the character iteration on the input and the zip method have `O(n)` time complexity, which is the overall time complexity of the function
 - `create_huffman_tree(frequencies)`: invoking queue.PriorityQueue(), as well as "maintaining the order by appending to the list and re-sorting also takes at least `O(n log n)` time." (Source 2)
-- `build_codes(node, code = None, codes = {})`: time complexity is `O(d)` where d is the depth of the recursion
-- `encode(text, codes)`: `O(l)` where l is the length of the input text
+- `build_codes(node, code = None, codes = {})`: time complexity is `O(n)` where n is the depth of the recursion
+- `encode(text, codes)`: `O(n)` where n is the length of the input text
 - `huffman_decoding(encoded_text, root)`: `O(n)` where n is the lenght of the encoded text that needs to be decoded
+(Source 3)
 
 # Problem 4: Active Directory
 
@@ -45,3 +46,4 @@ When considering intersection, iterating through the first set (created from lli
 
 1: https://www.interviewcake.com/concept/java/lru-cache
 2: https://dbader.org/blog/priority-queues-in-python
+3: https://www.bigocheatsheet.com/
