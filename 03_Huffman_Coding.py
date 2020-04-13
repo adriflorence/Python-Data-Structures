@@ -24,13 +24,13 @@ def get_frequencies(data):
         return False
 
     char_dict = {}
-    for char in data:
+    for char in data: # O(n) where n is the length of data
         if char not in char_dict:
             char_dict[char] = 1
         else: 
             char_dict[char] += 1
     # 2. Build and sort a list of tuples from lowest to highest frequencies.
-    frequencies = zip(char_dict.values(), char_dict.keys())
+    frequencies = zip(char_dict.values(), char_dict.keys()) # O(n)
     return frequencies
 
 
@@ -78,7 +78,7 @@ def build_codes(node, code = None, codes = {}):
 
 
 # 5. Encode the text into its compressed form
-def encode(text, codes):
+def encode(text, codes): # O(l) where l is the length of the input text
     output = ""
     for char in text:
         output += codes[char]
